@@ -3,11 +3,11 @@ import { cn } from "@/lib/utils";
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
-  customProp?: string;
+  _customProp?: string;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, customProp, ...props }, ref) => {
+  ({ className, type, _customProp, ...props }, ref) => {
     return (
       <input
         type={type}
