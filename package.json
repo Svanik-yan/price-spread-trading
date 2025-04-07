@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "NEXT_IGNORE_ESLINT=true next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "bootstrap": "^5.3.5",
     "next": "15.2.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

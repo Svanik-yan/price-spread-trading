@@ -46,7 +46,7 @@ export const useTradeStore = create<TradeState>((set) => ({
     volume: 1,
     limitPrice: 0,
     interval: 0,
-    color: "否",
+    isLocked: "否",
   },
   
   updateFormData: (data) => set((state) => ({

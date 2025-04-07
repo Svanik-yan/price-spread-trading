@@ -37,11 +37,10 @@ export function SpreadTable() {
   }, [addSpreadItem]);
 
   return (
-    <div className="bg-gray-900 rounded-md overflow-hidden">
-      <h2 className="text-xl font-semibold p-4 text-white">价差</h2>
+    <div className="bg-white rounded-md overflow-hidden">
       <div className="overflow-x-auto">
-        <table className="w-full text-white">
-          <thead className="bg-gray-800">
+        <table className="table table-striped table-hover table-sm mb-0">
+          <thead className="table-light">
             <tr>
               <th className="py-2 px-4 text-left">名称</th>
               <th className="py-2 px-4 text-right">买量</th>
@@ -55,11 +54,11 @@ export function SpreadTable() {
           </thead>
           <tbody>
             {spreadItems.map((item) => (
-              <tr key={item.id} className="border-t border-gray-800 hover:bg-gray-800/50">
+              <tr key={item.id} className="border-t border-gray-200 hover:bg-gray-100">
                 <td className="py-2 px-4">{item.name}</td>
                 <td className="py-2 px-4 text-right">{item.buyVolume}</td>
-                <td className="py-2 px-4 text-right text-green-500">{item.buyPrice.toFixed(2)}</td>
-                <td className="py-2 px-4 text-right text-red-500">{item.sellPrice.toFixed(2)}</td>
+                <td className="py-2 px-4 text-right text-success">{item.buyPrice.toFixed(2)}</td>
+                <td className="py-2 px-4 text-right text-danger">{item.sellPrice.toFixed(2)}</td>
                 <td className="py-2 px-4 text-right">{item.sellVolume}</td>
                 <td className="py-2 px-4 text-right">{item.netPosition}</td>
                 <td className="py-2 px-4 text-right">{item.time}</td>
@@ -68,7 +67,7 @@ export function SpreadTable() {
             ))}
             {spreadItems.length === 0 && (
               <tr>
-                <td colSpan={8} className="text-center py-4 text-gray-500">
+                <td colSpan={8} className="text-center py-4 text-muted">
                   暂无数据
                 </td>
               </tr>

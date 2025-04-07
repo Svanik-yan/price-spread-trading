@@ -41,7 +41,7 @@ export interface TradeFormData {
   volume: number;
   limitPrice: number;
   interval: number;
-  color: string;
+  isLocked: string;
 }
 
 // 算法配置
