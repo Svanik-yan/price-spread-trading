@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useTradeStore } from "@/lib/store/trade-store";
+import { Direction, OpenClose } from "@/types";
 
 export function TradeForm() {
   const { formData, updateFormData, addLog } = useTradeStore();
@@ -30,7 +31,7 @@ export function TradeForm() {
           <label className="block text-sm font-medium text-gray-400">方向</label>
           <Select
             value={formData.direction}
-            onValueChange={(value: any) => updateFormData({ direction: value })}
+            onValueChange={(value: Direction) => updateFormData({ direction: value })}
           >
             <SelectTrigger>
               <SelectValue placeholder="选择方向" />
@@ -46,7 +47,7 @@ export function TradeForm() {
           <label className="block text-sm font-medium text-gray-400">开平</label>
           <Select
             value={formData.openClose}
-            onValueChange={(value: any) => updateFormData({ openClose: value })}
+            onValueChange={(value: OpenClose) => updateFormData({ openClose: value })}
           >
             <SelectTrigger>
               <SelectValue placeholder="选择开平" />
@@ -100,7 +101,7 @@ export function TradeForm() {
           <label className="block text-sm font-medium text-gray-400">颜色</label>
           <Select
             value={formData.color}
-            onValueChange={(value: any) => updateFormData({ color: value })}
+            onValueChange={(value: string) => updateFormData({ color: value })}
           >
             <SelectTrigger>
               <SelectValue placeholder="是否显示颜色" />

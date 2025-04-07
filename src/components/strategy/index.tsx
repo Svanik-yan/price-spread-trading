@@ -5,7 +5,6 @@ import { useTradeStore } from "@/lib/store/trade-store";
 export function StrategyPanel() {
   const { 
     currentStrategy, 
-    strategies,
     isInitialized, 
     isRunning, 
     initialize, 

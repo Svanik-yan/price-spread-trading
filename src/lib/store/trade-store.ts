@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { AlgorithmConfig, Direction, LogItem, OpenClose, SpreadItem, Strategy, TradeFormData } from "@/types";
+import { AlgorithmConfig, LogItem, SpreadItem, Strategy, TradeFormData } from "@/types";
 
 interface TradeState {
   // 交易表单数据
