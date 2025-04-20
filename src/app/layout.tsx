@@ -5,8 +5,8 @@ import Script from 'next/script';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "AI价差交易系统 | 智能量化交易平台",
-  description: "基于人工智能的下一代价差交易系统，支持自动化策略执行和实时数据分析",
+  title: "价差交易系统",
+  description: "高性能价差交易平台",
 };
 
 export default function RootLayout({
@@ -17,7 +17,8 @@ export default function RootLayout({
   return (
     <html lang="zh-CN">
       <head>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.min.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
       </head>
       <body className={inter.className}>
         <div className="fixed -top-40 -right-40 w-96 h-96 bg-purple-600 rounded-full opacity-20 blur-3xl"></div>
@@ -56,7 +57,10 @@ export default function RootLayout({
         </footer>
         
         {/* Bootstrap JS */}
-        <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" strategy="lazyOnload" />
+        <Script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+          strategy="lazyOnload"
+        />
       </body>
     </html>
   );

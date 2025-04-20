@@ -62,92 +62,113 @@ export function SystemStatus() {
   };
 
   return (
-    <div className="card bg-dark text-light border-secondary h-100">
-      <div className="card-header d-flex justify-content-between align-items-center">
-        <h5 className="mb-0">
+    <div className="system-status-container h-100">
+      {/* 标题和连接状态 */}
+      <div className="system-status-header d-flex justify-content-between align-items-center bg-dark border-bottom border-secondary p-2">
+        <h5 className="mb-0 fs-6">
           <i className="bi bi-hdd-network me-2"></i>
           系统状态
         </h5>
-        <span className={`badge ${isConnected ? 'bg-success' : 'bg-danger'}`}>
+        <span className={`badge ${isConnected ? 'bg-success' : 'bg-danger'} d-flex align-items-center px-2 py-1`}>
           <i className={`bi ${isConnected ? 'bi-wifi' : 'bi-wifi-off'} me-1`}></i>
           {isConnected ? '已连接' : '未连接'}
         </span>
       </div>
-      <div className="card-body p-2">
-        <div className="row g-2">
-          {/* CPU使用率 */}
-          <div className="col-12">
-            <div className="d-flex justify-content-between align-items-center mb-1">
-              <div className="d-flex align-items-center">
-                <i className="bi bi-cpu text-primary me-2"></i>
-                <span>CPU使用率</span>
-              </div>
-              <span className={`badge bg-${getStatusColor(metrics.cpuUsage, 'cpu')}`}>{metrics.cpuUsage}%</span>
+      
+      {/* 系统指标 */}
+      <div className="system-status-body p-2 bg-dark">
+        {/* CPU使用率 */}
+        <div className="metric-item mb-2">
+          <div className="d-flex justify-content-between align-items-center mb-1">
+            <div className="d-flex align-items-center">
+              <i className="bi bi-cpu text-primary me-1"></i>
+              <span className="small">CPU使用率</span>
             </div>
-            <div className="progress bg-secondary bg-opacity-25" style={{ height: '8px' }}>
-              <div 
-                className={`progress-bar bg-${getStatusColor(metrics.cpuUsage, 'cpu')}`} 
-                style={{ width: `${metrics.cpuUsage}%` }}
-              ></div>
+            <span className={`badge bg-${getStatusColor(metrics.cpuUsage, 'cpu')}`}>{metrics.cpuUsage}%</span>
+          </div>
+          <div className="progress bg-secondary bg-opacity-25" style={{ height: '8px' }}>
+            <div 
+              className={`progress-bar bg-${getStatusColor(metrics.cpuUsage, 'cpu')}`} 
+              style={{ width: `${metrics.cpuUsage}%` }}
+              role="progressbar"
+              aria-valuenow={metrics.cpuUsage}
+              aria-valuemin={0}
+              aria-valuemax={100}
+            ></div>
+          </div>
+        </div>
+
+        {/* 内存使用率 */}
+        <div className="metric-item mb-2">
+          <div className="d-flex justify-content-between align-items-center mb-1">
+            <div className="d-flex align-items-center">
+              <i className="bi bi-memory text-primary me-1"></i>
+              <span className="small">内存使用率</span>
+            </div>
+            <span className={`badge bg-${getStatusColor(metrics.memoryUsage, 'memory')}`}>{metrics.memoryUsage}%</span>
+          </div>
+          <div className="progress bg-secondary bg-opacity-25" style={{ height: '8px' }}>
+            <div 
+              className={`progress-bar bg-${getStatusColor(metrics.memoryUsage, 'memory')}`} 
+              style={{ width: `${metrics.memoryUsage}%` }}
+              role="progressbar"
+              aria-valuenow={metrics.memoryUsage}
+              aria-valuemin={0}
+              aria-valuemax={100}
+            ></div>
+          </div>
+        </div>
+
+        {/* 网络延迟 */}
+        <div className="metric-item mb-2">
+          <div className="d-flex justify-content-between align-items-center mb-1">
+            <div className="d-flex align-items-center">
+              <i className="bi bi-speedometer2 text-primary me-1"></i>
+              <span className="small">网络延迟</span>
+            </div>
+            <span className={`badge bg-${getStatusColor(metrics.networkLatency, 'latency')}`}>{metrics.networkLatency} ms</span>
+          </div>
+          <div className="progress bg-secondary bg-opacity-25" style={{ height: '8px' }}>
+            <div 
+              className={`progress-bar bg-${getStatusColor(metrics.networkLatency, 'latency')}`} 
+              style={{ width: `${Math.min(100, metrics.networkLatency)}%` }}
+              role="progressbar"
+              aria-valuenow={Math.min(100, metrics.networkLatency)}
+              aria-valuemin={0}
+              aria-valuemax={100}
+            ></div>
+          </div>
+        </div>
+
+        {/* 消息处理速率和运行时间 */}
+        <div className="metrics-summary row g-2 mt-2">
+          <div className="col-6">
+            <div className="bg-dark bg-opacity-75 border border-secondary rounded p-2 h-100">
+              <div className="d-flex align-items-center">
+                <i className="bi bi-envelope text-info me-1"></i>
+                <small>消息速率</small>
+              </div>
+              <div className="fs-6 fw-bold mt-1 text-center">
+                {metrics.messageRate} <small className="text-muted fs-8">msgs/s</small>
+              </div>
             </div>
           </div>
-
-          {/* 内存使用率 */}
-          <div className="col-12">
-            <div className="d-flex justify-content-between align-items-center mb-1">
+          <div className="col-6">
+            <div className="bg-dark bg-opacity-75 border border-secondary rounded p-2 h-100">
               <div className="d-flex align-items-center">
-                <i className="bi bi-memory text-primary me-2"></i>
-                <span>内存使用率</span>
+                <i className="bi bi-clock-history text-warning me-1"></i>
+                <small>运行时间</small>
               </div>
-              <span className={`badge bg-${getStatusColor(metrics.memoryUsage, 'memory')}`}>{metrics.memoryUsage}%</span>
-            </div>
-            <div className="progress bg-secondary bg-opacity-25" style={{ height: '8px' }}>
-              <div 
-                className={`progress-bar bg-${getStatusColor(metrics.memoryUsage, 'memory')}`} 
-                style={{ width: `${metrics.memoryUsage}%` }}
-              ></div>
-            </div>
-          </div>
-
-          {/* 网络延迟 */}
-          <div className="col-12">
-            <div className="d-flex justify-content-between align-items-center mb-1">
-              <div className="d-flex align-items-center">
-                <i className="bi bi-speedometer2 text-primary me-2"></i>
-                <span>网络延迟</span>
-              </div>
-              <span className={`badge bg-${getStatusColor(metrics.networkLatency, 'latency')}`}>{metrics.networkLatency} ms</span>
-            </div>
-            <div className="progress bg-secondary bg-opacity-25" style={{ height: '8px' }}>
-              <div 
-                className={`progress-bar bg-${getStatusColor(metrics.networkLatency, 'latency')}`} 
-                style={{ width: `${Math.min(100, metrics.networkLatency)}%` }}
-              ></div>
-            </div>
-          </div>
-
-          {/* 消息处理速率和运行时间 */}
-          <div className="col-12 mt-2">
-            <div className="d-flex justify-content-between bg-dark bg-opacity-75 p-2 rounded border border-secondary">
-              <div>
-                <div className="d-flex align-items-center">
-                  <i className="bi bi-envelope text-info me-2"></i>
-                  <small>消息速率</small>
-                </div>
-                <div className="fs-5 mt-1">{metrics.messageRate} <small className="text-muted">msgs/s</small></div>
-              </div>
-              <div className="border-start ps-3">
-                <div className="d-flex align-items-center">
-                  <i className="bi bi-clock-history text-warning me-2"></i>
-                  <small>运行时间</small>
-                </div>
-                <div className="fs-5 mt-1">{formatUptime(metrics.uptime)}</div>
+              <div className="fs-6 fw-bold mt-1 text-center">
+                {formatUptime(metrics.uptime)}
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="card-footer text-center py-1">
+      
+      {/* 底部状态栏 */}
+      <div className="system-status-footer bg-dark border-top border-secondary p-1 text-center">
         <small className="text-muted">最后更新: {new Date().toLocaleTimeString()}</small>
       </div>
     </div>

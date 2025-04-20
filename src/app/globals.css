@@ -317,3 +317,85 @@ button:active {
 .btn-gradient-danger {
   background: linear-gradient(45deg, #ef4444, #dc2626);
 }
+
+/* 确保系统状态组件样式 */
+.system-status-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  color: #fff;
+  background-color: #1e1e1e;
+}
+
+.system-status-body {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.system-status-footer {
+  margin-top: auto;
+}
+
+/* 修复进度条样式 */
+.progress {
+  background-color: rgba(80, 80, 80, 0.3) !important;
+  height: 8px;
+}
+
+/* 修复边距和间距问题 */
+.mb-3 {
+  margin-bottom: 1rem !important;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem !important;
+}
+
+.mt-2 {
+  margin-top: 0.5rem !important;
+}
+
+/* 修复其他潜在问题 */
+.row {
+  --bs-gutter-x: 0.5rem;
+  --bs-gutter-y: 0;
+}
+
+.col-6 {
+  padding-right: calc(var(--bs-gutter-x) * 0.5);
+  padding-left: calc(var(--bs-gutter-x) * 0.5);
+}
+
+.fs-8 {
+  font-size: 0.75rem !important;
+}
+
+/* 确保卡片样式正确 */
+.card {
+  background-color: #1e1e1e;
+  color: #fff;
+}
+
+.card-body {
+  flex: 1 1 auto;
+}
+
+/* 滚动条优化 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(80, 80, 80, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(80, 80, 80, 0.5);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 100, 100, 0.8);
+}

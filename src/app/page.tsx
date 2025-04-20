@@ -126,7 +126,7 @@ export default function Home() {
           </div>
           
           {/* 系统状态面板 */}
-          <div id="system-status-section" className="card shadow-sm border-info border-opacity-25">
+          <div id="system-status-section" className="card shadow-sm border-info border-opacity-25 mb-3">
             <div className="card-header bg-info bg-opacity-10 py-2 border-bottom d-flex justify-content-between align-items-center">
               <h5 className="card-title mb-0 text-info">
                 <i className="bi bi-hdd-network me-2"></i>
@@ -135,7 +135,7 @@ export default function Home() {
               </h5>
               <HelpIcon title="系统状态" content="实时监控系统运行状态、资源使用和性能指标" />
             </div>
-            <div className="card-body p-0">
+            <div className="card-body p-0 overflow-hidden" style={{ minHeight: "280px" }}>
               <SystemStatus />
             </div>
           </div>
