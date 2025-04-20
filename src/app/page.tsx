@@ -12,6 +12,7 @@ import { SystemStatus } from "@/components/system-status";
 import { StepGuide } from "@/components/step-guide";
 import { HelpIcon } from "@/components/context-help";
 import { PositionPanel } from "@/components/position-panel";
+import { Dashboard } from "@/components/dashboard";
 import { Layout, Menu, Button, Space, Tooltip, Badge, Typography, Tag, Divider } from 'antd';
 import { 
   QuestionCircleOutlined, 
@@ -149,6 +150,21 @@ export default function Home() {
         
         {/* 中央区域 */}
         <div className="col-md-6">
+          {/* 交易概览面板 */}
+          <div id="dashboard-section" className="card shadow-sm mb-2 border-primary border-opacity-25">
+            <div className="card-header bg-primary bg-opacity-10 py-1 border-bottom d-flex justify-content-between align-items-center">
+              <h6 className="card-title mb-0 text-primary">
+                <i className="bi bi-speedometer2 me-1"></i>
+                交易概览
+                <span className="badge bg-primary ms-1 fs-8">总览</span>
+              </h6>
+              <HelpIcon title="交易概览" content="显示交易策略、价差、持仓等关键数据统计" />
+            </div>
+            <div className="card-body p-0 overflow-hidden">
+              <Dashboard />
+            </div>
+          </div>
+          
           {/* 价差数据区 */}
           <div id="spread-data-section" className="card shadow-sm mb-2 border-success border-opacity-25">
             <div className="card-header bg-success bg-opacity-10 py-1 border-bottom d-flex justify-content-between align-items-center">
