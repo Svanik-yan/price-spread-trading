@@ -1,14 +1,20 @@
 "use client";
 
+import { useState } from "react";
 import { TradeForm } from "@/components/trade-form";
 import { SpreadTable } from "@/components/spread-table";
 import { LogPanel } from "@/components/log-panel";
 import { StrategyPanel } from "@/components/strategy";
 import { AlgorithmPanel } from "@/components/algorithm";
 import { StrategyControl } from "@/components/strategy-control";
-import { Button } from "@/components/ui/button";
+import { BeginnerGuide } from "@/components/beginner-guide";
+import { SystemStatus } from "@/components/system-status";
+import { Dashboard } from "@/components/dashboard";
 
 export default function Home() {
+  // 控制初学者指南显示
+  const [showGuide, setShowGuide] = useState(false);
+
   return (
     <div className="container-fluid px-2 py-2" style={{ minHeight: 'calc(100vh - 3rem)' }}>
       {/* 顶部导航栏 */}
@@ -18,7 +24,14 @@ export default function Home() {
             <i className="bi bi-graph-up-arrow text-primary me-2"></i>
             价差交易平台
           </span>
+          
           <div className="d-flex align-items-center">
+            {/* 新手指引按钮 */}
+            <button onClick={() => setShowGuide(!showGuide)} className="btn btn-outline-primary me-3">
+              <i className="bi bi-question-circle me-1"></i>
+              {showGuide ? "关闭指引" : "新手指引"}
+            </button>
+            
             <div className="d-flex align-items-center me-3">
               <span className="badge bg-success rounded-circle p-1 me-1">
                 <i className="bi bi-check-circle-fill"></i>
@@ -37,6 +50,22 @@ export default function Home() {
         </div>
       </nav>
       
+      {/* 新手引导区域 - 条件渲染 */}
+      {showGuide && (
+        <div className="card mb-2 border-primary">
+          <div className="card-body">
+            <BeginnerGuide />
+          </div>
+        </div>
+      )}
+      
+      {/* 仪表盘 */}
+      <div className="row mb-2">
+        <div className="col-12">
+          <Dashboard />
+        </div>
+      </div>
+      
       {/* 主体内容 */}
       <div className="row g-2">
         {/* 左侧交易和控制区 */}
@@ -44,9 +73,10 @@ export default function Home() {
           {/* 交易表单 */}
           <div className="card mb-2 shadow-sm">
             <div className="card-header bg-light py-2 border-bottom">
-              <h5 className="card-title mb-0 text-primary">
+              <h5 className="card-title mb-0 text-primary d-flex align-items-center">
                 <i className="bi bi-sliders me-2"></i>
                 交易控制
+                <span className="badge bg-primary ms-2 fs-8">开始此处</span>
               </h5>
             </div>
             <div className="card-body py-2">
@@ -66,40 +96,19 @@ export default function Home() {
               <StrategyControl />
             </div>
           </div>
+          
+          {/* 系统状态面板 */}
+          <div className="card shadow-sm">
+            <div className="card-body p-0">
+              <SystemStatus />
+            </div>
+          </div>
         </div>
         
         {/* 中央区域 */}
         <div className="col-md-6">
-          {/* 算法模块 */}
-          <div className="card mb-2 shadow-sm">
-            <div className="card-header bg-light py-2 border-bottom d-flex justify-content-between align-items-center">
-              <h5 className="card-title mb-0 text-primary">
-                <i className="bi bi-cpu me-2"></i>
-                算法
-              </h5>
-              <span className="badge bg-primary d-flex align-items-center">
-                <i className="bi bi-arrow-repeat me-1"></i>
-                自动更新
-              </span>
-            </div>
-            <div className="card-body p-0">
-              <AlgorithmPanel />
-            </div>
-            <div className="card-footer d-flex justify-content-between border-top py-2">
-              <small className="text-muted">总算法: 3个</small>
-              <div>
-                <button className="btn btn-sm btn-primary me-2">
-                  <i className="bi bi-plus-lg me-1"></i>添加
-                </button>
-                <button className="btn btn-sm btn-danger">
-                  <i className="bi bi-trash me-1"></i>删除
-                </button>
-              </div>
-            </div>
-          </div>
-          
           {/* 价差数据区 */}
-          <div className="card shadow-sm">
+          <div className="card shadow-sm mb-2">
             <div className="card-header bg-light py-2 border-bottom d-flex justify-content-between align-items-center">
               <h5 className="card-title mb-0 text-primary">
                 <i className="bi bi-bar-chart-line me-2"></i>
@@ -127,6 +136,34 @@ export default function Home() {
                 </button>
                 <button className="btn btn-sm btn-primary">
                   <i className="bi bi-funnel me-1"></i>过滤
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          {/* 算法模块 */}
+          <div className="card mb-2 shadow-sm">
+            <div className="card-header bg-light py-2 border-bottom d-flex justify-content-between align-items-center">
+              <h5 className="card-title mb-0 text-primary">
+                <i className="bi bi-cpu me-2"></i>
+                算法
+              </h5>
+              <span className="badge bg-primary d-flex align-items-center">
+                <i className="bi bi-arrow-repeat me-1"></i>
+                自动更新
+              </span>
+            </div>
+            <div className="card-body p-0">
+              <AlgorithmPanel />
+            </div>
+            <div className="card-footer d-flex justify-content-between border-top py-2">
+              <small className="text-muted">总算法: 3个</small>
+              <div>
+                <button className="btn btn-sm btn-primary me-2">
+                  <i className="bi bi-plus-lg me-1"></i>添加
+                </button>
+                <button className="btn btn-sm btn-danger">
+                  <i className="bi bi-trash me-1"></i>删除
                 </button>
               </div>
             </div>
@@ -170,7 +207,7 @@ export default function Home() {
               <LogPanel />
             </div>
             <div className="card-footer d-flex justify-content-between border-top py-2">
-              <small className="text-muted">最近20条记录</small>
+              <small className="text-muted">最近日志记录</small>
               <button className="btn btn-sm btn-primary">
                 <i className="bi bi-trash me-1"></i>清除日志
               </button>

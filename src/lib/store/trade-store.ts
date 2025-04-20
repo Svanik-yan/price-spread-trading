@@ -31,6 +31,7 @@ interface TradeState {
   // 系统状态
   isInitialized: boolean;
   isRunning: boolean;
+  isConnected: boolean;
   initialize: () => void;
   startAll: () => void;
   stopAll: () => void;
@@ -97,6 +98,7 @@ export const useTradeStore = create<TradeState>((set) => ({
   // 系统状态
   isInitialized: false,
   isRunning: false,
+  isConnected: true,
   initialize: () => set((state) => {
     state.addLog("系统初始化");
     return { isInitialized: true };
