@@ -9,7 +9,6 @@ import { AlgorithmPanel } from "@/components/algorithm";
 import { StrategyControl } from "@/components/strategy-control";
 import { BeginnerGuide } from "@/components/beginner-guide";
 import { SystemStatus } from "@/components/system-status";
-import { Dashboard } from "@/components/dashboard";
 import { StepGuide } from "@/components/step-guide";
 import { HelpIcon } from "@/components/context-help";
 import { PositionPanel } from "@/components/position-panel";
@@ -97,13 +96,6 @@ export default function Home() {
           </div>
         </div>
       )}
-      
-      {/* 仪表盘 */}
-      <div className="row mb-2">
-        <div className="col-12">
-          <Dashboard />
-        </div>
-      </div>
       
       {/* 主体内容 */}
       <div className="row g-2">
