@@ -52,4 +52,21 @@ export interface AlgorithmConfig {
   openPrice: number;
   volume: number;
   status: string;
+}
+
+// 持仓状态
+export type PositionStatus = "持有中" | "平仓中" | "已平仓";
+
+// 持仓数据
+export interface PositionItem {
+  id: string;
+  spreadId: string;
+  direction: Direction;
+  price: number;
+  volume: number;
+  time: string;
+  profit: number;
+  status: PositionStatus;
+  stopLoss?: number;
+  takeProfit?: number;
 } 

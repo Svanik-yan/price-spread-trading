@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTradeStore } from '@/lib/store/trade-store';
 
+// 系统指标接口
 interface SystemMetrics {
   cpuUsage: number;
   memoryUsage: number;
@@ -10,7 +11,7 @@ interface SystemMetrics {
 }
 
 export function SystemStatus() {
-  const { isConnected = false } = useTradeStore();
+  const { isInitialized, isRunning, isConnected, spreadItems, logs } = useTradeStore();
   const [metrics, setMetrics] = useState<SystemMetrics>({
     cpuUsage: 0,
     memoryUsage: 0,
@@ -18,158 +19,206 @@ export function SystemStatus() {
     messageRate: 0,
     uptime: 0
   });
-  
+  const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
+
   // 模拟系统指标更新
   useEffect(() => {
-    // 实际应用中，这里应该从后端API获取真实数据
     const interval = setInterval(() => {
+      // 真实系统应该从API获取这些数据，而不是使用随机数
+      // 但现在我们使用更合理的随机数据，并将其与系统状态相关联
+      
+      // 当系统运行时，CPU和内存使用率更高
+      const baseCpuUsage = isRunning ? 25 : 10;
+      const baseMemoryUsage = isRunning ? 35 : 15;
+      
+      // 消息速率仅在系统运行时有意义
+      const baseMessageRate = isRunning ? 50 + spreadItems.length * 5 : 0;
+      
+      // 网络延迟取决于是否连接
+      const baseNetworkLatency = isConnected ? 15 : 500;
+      
       setMetrics({
-        cpuUsage: Math.floor(Math.random() * 60) + 5, // 5-65%
-        memoryUsage: Math.floor(Math.random() * 40) + 20, // 20-60%
-        networkLatency: Math.floor(Math.random() * 50) + 10, // 10-60ms
-        messageRate: Math.floor(Math.random() * 200) + 100, // 100-300 msgs/s
-        uptime: metrics.uptime + 1 // 增加运行时间
+        cpuUsage: baseCpuUsage + Math.random() * 10,
+        memoryUsage: baseMemoryUsage + Math.random() * 15,
+        networkLatency: baseNetworkLatency + Math.random() * 20,
+        messageRate: baseMessageRate + Math.random() * 20,
+        uptime: metrics.uptime + 3
       });
+      setLastUpdated(new Date());
     }, 3000);
-    
-    return () => clearInterval(interval);
-  }, [metrics.uptime]);
 
-  // 计算正常运行时间的格式化显示
-  const formatUptime = (seconds: number) => {
+    return () => clearInterval(interval);
+  }, [isRunning, isConnected, spreadItems.length, metrics.uptime]);
+
+  // 格式化运行时间
+  const formatUptime = (seconds: number): string => {
     const days = Math.floor(seconds / 86400);
     const hours = Math.floor((seconds % 86400) / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
-    
-    if (days > 0) {
-      return `${days}天${hours}小时`;
-    } else if (hours > 0) {
-      return `${hours}小时${minutes}分钟`;
-    } else {
-      return `${minutes}分钟`;
-    }
+    const secs = Math.floor(seconds % 60);
+
+    return `${days > 0 ? days + "天 " : ""}${hours.toString().padStart(2, "0")}:${minutes
+      .toString()
+      .padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
-  // 根据值确定状态颜色
-  const getStatusColor = (value: number, type: 'cpu' | 'memory' | 'latency') => {
-    if (type === 'cpu') {
-      return value < 30 ? 'success' : value < 70 ? 'warning' : 'danger';
-    } else if (type === 'memory') {
-      return value < 40 ? 'success' : value < 80 ? 'warning' : 'danger';
-    } else {
-      return value < 30 ? 'success' : value < 100 ? 'warning' : 'danger';
-    }
+  // 根据指标值确定状态颜色
+  const getStatusColor = (value: number, thresholds: { warning: number; danger: number }): string => {
+    if (value >= thresholds.danger) return "danger";
+    if (value >= thresholds.warning) return "warning";
+    return "success";
   };
+
+  // 确定网络延迟颜色
+  const getLatencyColor = (value: number): string => {
+    if (value > 100) return "danger";
+    if (value > 50) return "warning";
+    return "success";
+  };
+
+  // 确定系统整体状态
+  const getSystemStatusLabel = (): { text: string; color: string } => {
+    if (!isConnected) return { text: "离线", color: "danger" };
+    if (!isInitialized) return { text: "未初始化", color: "warning" };
+    if (isRunning) return { text: "运行中", color: "success" };
+    return { text: "已就绪", color: "info" };
+  };
+
+  const systemStatus = getSystemStatusLabel();
 
   return (
-    <div className="system-status-container h-100">
-      {/* 标题和连接状态 */}
-      <div className="system-status-header d-flex justify-content-between align-items-center bg-dark border-bottom border-secondary p-2">
-        <h5 className="mb-0 fs-6">
-          <i className="bi bi-hdd-network me-2"></i>
-          系统状态
-        </h5>
-        <span className={`badge ${isConnected ? 'bg-success' : 'bg-danger'} d-flex align-items-center px-2 py-1`}>
-          <i className={`bi ${isConnected ? 'bi-wifi' : 'bi-wifi-off'} me-1`}></i>
-          {isConnected ? '已连接' : '未连接'}
+    <div className="d-flex flex-column h-100">
+      {/* 系统状态头部 */}
+      <div className={`bg-${systemStatus.color} bg-opacity-10 p-2 border-bottom text-center d-flex align-items-center justify-content-center`}>
+        <i className={`bi bi-${isRunning ? "play-circle" : isConnected ? "pause-circle" : "x-circle"} me-2 fs-5`}></i>
+        <span className={`text-${systemStatus.color} fw-bold`}>
+          {systemStatus.text}
         </span>
       </div>
-      
-      {/* 系统指标 */}
-      <div className="system-status-body p-2 bg-dark">
-        {/* CPU使用率 */}
-        <div className="metric-item mb-2">
-          <div className="d-flex justify-content-between align-items-center mb-1">
-            <div className="d-flex align-items-center">
-              <i className="bi bi-cpu text-primary me-1"></i>
-              <span className="small">CPU使用率</span>
-            </div>
-            <span className={`badge bg-${getStatusColor(metrics.cpuUsage, 'cpu')}`}>{metrics.cpuUsage}%</span>
-          </div>
-          <div className="progress bg-secondary bg-opacity-25" style={{ height: '8px' }}>
-            <div 
-              className={`progress-bar bg-${getStatusColor(metrics.cpuUsage, 'cpu')}`} 
-              style={{ width: `${metrics.cpuUsage}%` }}
-              role="progressbar"
-              aria-valuenow={metrics.cpuUsage}
-              aria-valuemin={0}
-              aria-valuemax={100}
-            ></div>
-          </div>
-        </div>
 
-        {/* 内存使用率 */}
-        <div className="metric-item mb-2">
-          <div className="d-flex justify-content-between align-items-center mb-1">
-            <div className="d-flex align-items-center">
-              <i className="bi bi-memory text-primary me-1"></i>
-              <span className="small">内存使用率</span>
-            </div>
-            <span className={`badge bg-${getStatusColor(metrics.memoryUsage, 'memory')}`}>{metrics.memoryUsage}%</span>
-          </div>
-          <div className="progress bg-secondary bg-opacity-25" style={{ height: '8px' }}>
-            <div 
-              className={`progress-bar bg-${getStatusColor(metrics.memoryUsage, 'memory')}`} 
-              style={{ width: `${metrics.memoryUsage}%` }}
-              role="progressbar"
-              aria-valuenow={metrics.memoryUsage}
-              aria-valuemin={0}
-              aria-valuemax={100}
-            ></div>
-          </div>
-        </div>
-
-        {/* 网络延迟 */}
-        <div className="metric-item mb-2">
-          <div className="d-flex justify-content-between align-items-center mb-1">
-            <div className="d-flex align-items-center">
-              <i className="bi bi-speedometer2 text-primary me-1"></i>
-              <span className="small">网络延迟</span>
-            </div>
-            <span className={`badge bg-${getStatusColor(metrics.networkLatency, 'latency')}`}>{metrics.networkLatency} ms</span>
-          </div>
-          <div className="progress bg-secondary bg-opacity-25" style={{ height: '8px' }}>
-            <div 
-              className={`progress-bar bg-${getStatusColor(metrics.networkLatency, 'latency')}`} 
-              style={{ width: `${Math.min(100, metrics.networkLatency)}%` }}
-              role="progressbar"
-              aria-valuenow={Math.min(100, metrics.networkLatency)}
-              aria-valuemin={0}
-              aria-valuemax={100}
-            ></div>
-          </div>
-        </div>
-
-        {/* 消息处理速率和运行时间 */}
-        <div className="metrics-summary row g-2 mt-2">
+      {/* 主要指标 - 使用两列网格布局 */}
+      <div className="p-2 flex-grow-1 overflow-auto">
+        <div className="row g-2">
+          {/* CPU使用率 */}
           <div className="col-6">
-            <div className="bg-dark bg-opacity-75 border border-secondary rounded p-2 h-100">
-              <div className="d-flex align-items-center">
-                <i className="bi bi-envelope text-info me-1"></i>
-                <small>消息速率</small>
-              </div>
-              <div className="fs-6 fw-bold mt-1 text-center">
-                {metrics.messageRate} <small className="text-muted fs-8">msgs/s</small>
+            <div className="card border-0 h-100">
+              <div className="card-body p-2 text-center">
+                <div className="small text-muted mb-1 fs-8">CPU使用率</div>
+                <div className={`fs-6 fw-bold text-${getStatusColor(metrics.cpuUsage, { warning: 70, danger: 90 })}`}>
+                  {metrics.cpuUsage.toFixed(1)}%
+                </div>
+                <div className="progress mt-1" style={{ height: "4px" }}>
+                  <div
+                    className={`progress-bar bg-${getStatusColor(metrics.cpuUsage, {
+                      warning: 70,
+                      danger: 90
+                    })}`}
+                    style={{ width: `${metrics.cpuUsage}%` }}
+                  ></div>
+                </div>
               </div>
             </div>
           </div>
+          
+          {/* 内存使用率 */}
           <div className="col-6">
-            <div className="bg-dark bg-opacity-75 border border-secondary rounded p-2 h-100">
-              <div className="d-flex align-items-center">
-                <i className="bi bi-clock-history text-warning me-1"></i>
-                <small>运行时间</small>
+            <div className="card border-0 h-100">
+              <div className="card-body p-2 text-center">
+                <div className="small text-muted mb-1 fs-8">内存使用率</div>
+                <div className={`fs-6 fw-bold text-${getStatusColor(metrics.memoryUsage, { warning: 75, danger: 90 })}`}>
+                  {metrics.memoryUsage.toFixed(1)}%
+                </div>
+                <div className="progress mt-1" style={{ height: "4px" }}>
+                  <div
+                    className={`progress-bar bg-${getStatusColor(metrics.memoryUsage, {
+                      warning: 75,
+                      danger: 90
+                    })}`}
+                    style={{ width: `${metrics.memoryUsage}%` }}
+                  ></div>
+                </div>
               </div>
-              <div className="fs-6 fw-bold mt-1 text-center">
-                {formatUptime(metrics.uptime)}
+            </div>
+          </div>
+
+          {/* 网络延迟 */}
+          <div className="col-6">
+            <div className="card border-0 h-100">
+              <div className="card-body p-2 text-center">
+                <div className="small text-muted mb-1 fs-8">网络延迟</div>
+                <div className={`fs-6 fw-bold text-${getLatencyColor(metrics.networkLatency)}`}>
+                  {metrics.networkLatency.toFixed(1)} ms
+                </div>
+                <span className={`badge bg-${getLatencyColor(metrics.networkLatency)} bg-opacity-10 
+                  text-${getLatencyColor(metrics.networkLatency)} w-100 mt-1 fs-8`}>
+                  {metrics.networkLatency < 30 ? "极佳" : metrics.networkLatency < 80 ? "良好" : "延迟较高"}
+                </span>
+              </div>
+            </div>
+          </div>
+          
+          {/* 消息速率 */}
+          <div className="col-6">
+            <div className="card border-0 h-100">
+              <div className="card-body p-2 text-center">
+                <div className="small text-muted mb-1 fs-8">消息速率</div>
+                <div className={`fs-6 fw-bold ${isRunning ? "text-primary" : "text-muted"}`}>
+                  {metrics.messageRate.toFixed(0)} 条/秒
+                </div>
+                <span className={`badge ${isRunning ? "bg-primary bg-opacity-10 text-primary" : "bg-secondary bg-opacity-10 text-secondary"} w-100 mt-1 fs-8`}>
+                  {isRunning ? "正常" : "已暂停"}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* 价差数量 */}
+          <div className="col-6">
+            <div className="card border-0 h-100">
+              <div className="card-body p-2 text-center">
+                <div className="small text-muted mb-1 fs-8">价差数量</div>
+                <div className="fs-6 fw-bold text-info">
+                  {spreadItems.length}
+                </div>
+                <span className="badge bg-info bg-opacity-10 text-info w-100 mt-1 fs-8">
+                  {spreadItems.length > 0 ? `${spreadItems.length}个价差` : "暂无价差"}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* 运行时间 */}
+          <div className="col-6">
+            <div className="card border-0 h-100">
+              <div className="card-body p-2 text-center">
+                <div className="small text-muted mb-1 fs-8">运行时间</div>
+                <div className="fs-6 fw-bold text-success">
+                  {formatUptime(metrics.uptime)}
+                </div>
+                <span className="badge bg-success bg-opacity-10 text-success w-100 mt-1 fs-8">
+                  {isInitialized ? "已初始化" : "未初始化"}
+                </span>
               </div>
             </div>
           </div>
         </div>
       </div>
-      
+
       {/* 底部状态栏 */}
-      <div className="system-status-footer bg-dark border-top border-secondary p-1 text-center">
-        <small className="text-muted">最后更新: {new Date().toLocaleTimeString()}</small>
+      <div className="bg-dark bg-opacity-10 p-2 border-top d-flex justify-content-between align-items-center">
+        <div>
+          <span className={`badge bg-${isConnected ? "success" : "danger"} me-1 p-1`}>
+            <i className={`bi bi-${isConnected ? "wifi" : "wifi-off"} fs-8`}></i>
+          </span>
+          <small className="text-muted fs-8">
+            {isConnected ? "连接正常" : "连接断开"}
+          </small>
+        </div>
+        <div>
+          <small className="text-muted fs-8">
+            {lastUpdated.toLocaleTimeString()}
+          </small>
+        </div>
       </div>
     </div>
   );

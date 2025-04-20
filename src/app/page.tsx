@@ -12,6 +12,7 @@ import { SystemStatus } from "@/components/system-status";
 import { Dashboard } from "@/components/dashboard";
 import { StepGuide } from "@/components/step-guide";
 import { HelpIcon } from "@/components/context-help";
+import { PositionPanel } from "@/components/position-panel";
 
 export default function Home() {
   // 控制初学者指南显示和当前活动步骤
@@ -47,23 +48,25 @@ export default function Home() {
           
           <div className="d-flex align-items-center">
             {/* 新手指引按钮 */}
-            <button onClick={() => setShowGuide(!showGuide)} className="btn btn-outline-primary me-3">
+            <button onClick={() => setShowGuide(!showGuide)} className="btn btn-outline-primary btn-sm me-2">
               <i className="bi bi-question-circle me-1"></i>
-              {showGuide ? "关闭指引" : "新手指引"}
+              <span className="d-none d-sm-inline">{showGuide ? "关闭指引" : "新手指引"}</span>
             </button>
             
-            <div className="d-flex align-items-center me-3">
+            <div className="d-flex align-items-center me-2">
               <span className="badge bg-success rounded-circle p-1 me-1">
                 <i className="bi bi-check-circle-fill"></i>
               </span>
-              <small className="text-success">系统在线</small>
+              <small className="text-success d-none d-sm-inline">系统在线</small>
             </div>
-            <div className="d-flex gap-2">
-              <button className="btn btn-sm btn-success">
-                <i className="bi bi-play-fill me-1"></i> 全部启动
+            <div className="d-flex gap-1">
+              <button className="btn btn-sm btn-success py-0 px-2">
+                <i className="bi bi-play-fill"></i>
+                <span className="d-none d-sm-inline ms-1">启动</span>
               </button>
-              <button className="btn btn-sm btn-danger">
-                <i className="bi bi-stop-fill me-1"></i> 全部停止
+              <button className="btn btn-sm btn-danger py-0 px-2">
+                <i className="bi bi-stop-fill"></i>
+                <span className="d-none d-sm-inline ms-1">停止</span>
               </button>
             </div>
           </div>
@@ -78,64 +81,64 @@ export default function Home() {
       {/* 新手引导区域 - 条件渲染 */}
       {showGuide && (
         <div className="card mb-2 border-primary">
-          <div className="card-body">
+          <div className="card-body py-2">
             <BeginnerGuide />
           </div>
         </div>
       )}
       
       {/* 仪表盘 */}
-      <div className="row mb-3">
+      <div className="row mb-2">
         <div className="col-12">
           <Dashboard />
         </div>
       </div>
       
       {/* 主体内容 */}
-      <div className="row g-3">
+      <div className="row g-2">
         {/* 左侧交易和控制区 */}
         <div className="col-md-3">
           {/* 交易表单 */}
-          <div id="trade-form-section" className="card mb-3 shadow-sm border-primary border-opacity-25">
-            <div className="card-header bg-primary bg-opacity-10 py-2 border-bottom d-flex justify-content-between align-items-center">
-              <h5 className="card-title mb-0 text-primary d-flex align-items-center">
-                <i className="bi bi-sliders me-2"></i>
+          <div id="trade-form-section" className="card mb-2 shadow-sm border-primary border-opacity-25">
+            <div className="card-header bg-primary bg-opacity-10 py-1 border-bottom d-flex justify-content-between align-items-center">
+              <h6 className="card-title mb-0 text-primary d-flex align-items-center">
+                <i className="bi bi-sliders me-1"></i>
                 交易控制
-                <span className="badge bg-primary ms-2 fs-8">第一步</span>
-              </h5>
+                <span className="badge bg-primary ms-1 fs-8">第一步</span>
+              </h6>
               <HelpIcon title="交易控制" content="在此设置价差交易参数，完成后点击启动交易" />
             </div>
-            <div className="card-body py-2">
+            <div className="card-body py-2 px-2">
               <TradeForm />
             </div>
           </div>
 
           {/* 策略控制区 */}
-          <div id="strategy-control-section" className="card mb-3 shadow-sm border-primary border-opacity-25">
-            <div className="card-header bg-primary bg-opacity-10 py-2 border-bottom d-flex justify-content-between align-items-center">
-              <h5 className="card-title mb-0 text-primary">
-                <i className="bi bi-gear-wide-connected me-2"></i>
+          <div id="strategy-control-section" className="card mb-2 shadow-sm border-primary border-opacity-25">
+            <div className="card-header bg-primary bg-opacity-10 py-1 border-bottom d-flex justify-content-between align-items-center">
+              <h6 className="card-title mb-0 text-primary">
+                <i className="bi bi-gear-wide-connected me-1"></i>
                 策略管理
-                <span className="badge bg-primary ms-2 fs-8">第二步</span>
-              </h5>
+                <span className="badge bg-primary ms-1 fs-8">第二步</span>
+              </h6>
               <HelpIcon title="策略管理" content="选择并管理交易策略，控制策略运行状态" />
             </div>
-            <div className="card-body py-2">
+            <div className="card-body py-2 px-2">
               <StrategyControl />
             </div>
           </div>
           
           {/* 系统状态面板 */}
-          <div id="system-status-section" className="card shadow-sm border-info border-opacity-25 mb-3">
-            <div className="card-header bg-info bg-opacity-10 py-2 border-bottom d-flex justify-content-between align-items-center">
-              <h5 className="card-title mb-0 text-info">
-                <i className="bi bi-hdd-network me-2"></i>
+          <div id="system-status-section" className="card shadow-sm border-info border-opacity-25 mb-2">
+            <div className="card-header bg-info bg-opacity-10 py-1 border-bottom d-flex justify-content-between align-items-center">
+              <h6 className="card-title mb-0 text-info">
+                <i className="bi bi-hdd-network me-1"></i>
                 系统状态
-                <span className="badge bg-info ms-2 fs-8">监控</span>
-              </h5>
+                <span className="badge bg-info ms-1 fs-8">监控</span>
+              </h6>
               <HelpIcon title="系统状态" content="实时监控系统运行状态、资源使用和性能指标" />
             </div>
-            <div className="card-body p-0 overflow-hidden" style={{ minHeight: "280px" }}>
+            <div className="card-body p-0 overflow-hidden" style={{ height: "280px" }}>
               <SystemStatus />
             </div>
           </div>
@@ -144,67 +147,71 @@ export default function Home() {
         {/* 中央区域 */}
         <div className="col-md-6">
           {/* 价差数据区 */}
-          <div id="spread-data-section" className="card shadow-sm mb-3 border-success border-opacity-25">
-            <div className="card-header bg-success bg-opacity-10 py-2 border-bottom d-flex justify-content-between align-items-center">
-              <h5 className="card-title mb-0 text-success">
-                <i className="bi bi-bar-chart-line me-2"></i>
+          <div id="spread-data-section" className="card shadow-sm mb-2 border-success border-opacity-25">
+            <div className="card-header bg-success bg-opacity-10 py-1 border-bottom d-flex justify-content-between align-items-center">
+              <h6 className="card-title mb-0 text-success">
+                <i className="bi bi-bar-chart-line me-1"></i>
                 价差数据
-                <span className="badge bg-success ms-2 fs-8">第三步</span>
-              </h5>
+                <span className="badge bg-success ms-1 fs-8">第三步</span>
+              </h6>
               <div className="d-flex align-items-center">
                 <HelpIcon title="价差数据" content="显示所有价差的实时行情和交易数据" placement="left" />
-                <span className="badge bg-info mx-2 d-flex align-items-center">
-                  <i className="bi bi-arrow-repeat me-1"></i>
-                  实时刷新
+                <span className="badge bg-info mx-1 d-flex align-items-center px-1 py-0">
+                  <i className="bi bi-arrow-repeat me-1 fs-8"></i>
+                  <span className="d-none d-md-inline fs-8">实时刷新</span>
                 </span>
-                <select className="form-select form-select-sm" style={{ width: "120px" }}>
-                  <option>按时间排序</option>
-                  <option>按价格排序</option>
+                <select className="form-select form-select-sm py-0" style={{ width: "100px" }}>
+                  <option>按时间</option>
+                  <option>按价格</option>
                 </select>
               </div>
             </div>
-            <div className="card-body p-0">
+            <div className="card-body p-0 overflow-auto" style={{ height: "300px" }}>
               <SpreadTable />
             </div>
-            <div className="card-footer d-flex justify-content-between border-top py-2">
-              <small className="text-muted">总数据: 12条</small>
+            <div className="card-footer d-flex justify-content-between border-top py-1">
+              <small className="text-muted fs-8">总数据: 12条</small>
               <div>
-                <button className="btn btn-sm btn-primary me-2">
-                  <i className="bi bi-arrow-clockwise me-1"></i>刷新
+                <button className="btn btn-sm btn-primary py-0 px-2 me-1">
+                  <i className="bi bi-arrow-clockwise fs-8"></i>
+                  <span className="d-none d-sm-inline ms-1">刷新</span>
                 </button>
-                <button className="btn btn-sm btn-primary">
-                  <i className="bi bi-funnel me-1"></i>过滤
+                <button className="btn btn-sm btn-primary py-0 px-2">
+                  <i className="bi bi-funnel fs-8"></i>
+                  <span className="d-none d-sm-inline ms-1">过滤</span>
                 </button>
               </div>
             </div>
           </div>
           
           {/* 算法模块 */}
-          <div className="card mb-3 shadow-sm border-warning border-opacity-25">
-            <div className="card-header bg-warning bg-opacity-10 py-2 border-bottom d-flex justify-content-between align-items-center">
-              <h5 className="card-title mb-0 text-warning">
-                <i className="bi bi-cpu me-2"></i>
+          <div className="card mb-2 shadow-sm border-warning border-opacity-25">
+            <div className="card-header bg-warning bg-opacity-10 py-1 border-bottom d-flex justify-content-between align-items-center">
+              <h6 className="card-title mb-0 text-warning">
+                <i className="bi bi-cpu me-1"></i>
                 算法
-              </h5>
+              </h6>
               <div className="d-flex align-items-center">
                 <HelpIcon title="交易算法" content="自动交易算法配置和管理" placement="left" />
-                <span className="badge bg-primary ms-2 d-flex align-items-center">
-                  <i className="bi bi-arrow-repeat me-1"></i>
-                  自动更新
+                <span className="badge bg-primary ms-1 d-flex align-items-center px-1 py-0">
+                  <i className="bi bi-arrow-repeat fs-8 me-1"></i>
+                  <span className="d-none d-md-inline fs-8">自动更新</span>
                 </span>
               </div>
             </div>
-            <div className="card-body p-0">
+            <div className="card-body p-0 overflow-auto" style={{ maxHeight: "200px" }}>
               <AlgorithmPanel />
             </div>
-            <div className="card-footer d-flex justify-content-between border-top py-2">
-              <small className="text-muted">总算法: 3个</small>
+            <div className="card-footer d-flex justify-content-between border-top py-1">
+              <small className="text-muted fs-8">总算法: 3个</small>
               <div>
-                <button className="btn btn-sm btn-primary me-2">
-                  <i className="bi bi-plus-lg me-1"></i>添加
+                <button className="btn btn-sm btn-primary py-0 px-2 me-1">
+                  <i className="bi bi-plus-lg fs-8"></i>
+                  <span className="d-none d-sm-inline ms-1">添加</span>
                 </button>
-                <button className="btn btn-sm btn-danger">
-                  <i className="bi bi-trash me-1"></i>删除
+                <button className="btn btn-sm btn-danger py-0 px-2">
+                  <i className="bi bi-trash fs-8"></i>
+                  <span className="d-none d-sm-inline ms-1">删除</span>
                 </button>
               </div>
             </div>
@@ -214,86 +221,65 @@ export default function Home() {
         {/* 右侧面板区域 */}
         <div className="col-md-3">
           {/* 策略面板 */}
-          <div className="card mb-3 shadow-sm border-warning border-opacity-25">
-            <div className="card-header bg-warning bg-opacity-10 py-2 border-bottom d-flex justify-content-between align-items-center">
-              <h5 className="card-title mb-0 text-warning">
-                <i className="bi bi-gear me-2"></i>
+          <div className="card mb-2 shadow-sm border-warning border-opacity-25">
+            <div className="card-header bg-warning bg-opacity-10 py-1 border-bottom d-flex justify-content-between align-items-center">
+              <h6 className="card-title mb-0 text-warning">
+                <i className="bi bi-gear me-1"></i>
                 策略
-                <span className="badge bg-warning ms-2 fs-8 text-dark">监控</span>
-              </h5>
+                <span className="badge bg-warning ms-1 fs-8 text-dark">监控</span>
+              </h6>
               <HelpIcon title="策略监控" content="显示策略运行状态和性能指标" placement="left" />
             </div>
-            <div className="card-body p-0">
+            <div className="card-body p-0 overflow-auto" style={{ maxHeight: "200px" }}>
               <StrategyPanel />
             </div>
-            <div className="card-footer d-flex justify-content-between border-top py-2">
-              <small className="text-muted">总策略: 3个</small>
-              <button className="btn btn-sm btn-primary">
-                <i className="bi bi-gear-wide-connected me-1"></i>管理
+            <div className="card-footer d-flex justify-content-between border-top py-1">
+              <small className="text-muted fs-8">总策略: 3个</small>
+              <button className="btn btn-sm btn-primary py-0 px-2">
+                <i className="bi bi-gear-wide-connected fs-8"></i>
+                <span className="d-none d-sm-inline ms-1">管理</span>
               </button>
             </div>
           </div>
           
           {/* 持仓面板 */}
-          <div id="position-panel-section" className="card mb-3 shadow-sm border-danger border-opacity-25">
-            <div className="card-header bg-danger bg-opacity-10 py-2 border-bottom d-flex justify-content-between align-items-center">
-              <h5 className="card-title mb-0 text-danger">
-                <i className="bi bi-briefcase me-2"></i>
+          <div id="position-panel-section" className="card mb-2 shadow-sm border-danger border-opacity-25">
+            <div className="card-header bg-danger bg-opacity-10 py-1 border-bottom d-flex justify-content-between align-items-center">
+              <h6 className="card-title mb-0 text-danger">
+                <i className="bi bi-briefcase me-1"></i>
                 持仓管理
-                <span className="badge bg-danger ms-2 fs-8">第四步</span>
-              </h5>
+                <span className="badge bg-danger ms-1 fs-8">第四步</span>
+              </h6>
               <HelpIcon title="持仓管理" content="查看和管理当前持仓情况" placement="left" />
             </div>
-            <div className="card-body p-2">
-              <div className="alert alert-info bg-info bg-opacity-10 mb-2 py-2">
-                <small>
-                  <i className="bi bi-info-circle me-1"></i>
-                  当前无持仓，请完成交易后查看此区域
-                </small>
-              </div>
-              <div className="list-group list-group-flush small">
-                <div className="list-group-item bg-dark text-light">
-                  <div className="d-flex justify-content-between align-items-center">
-                    <span>IF2306-IF2307</span>
-                    <span className="badge bg-success">多头</span>
-                  </div>
-                  <div className="d-flex justify-content-between mt-1">
-                    <small>数量: 2手</small>
-                    <small className="text-success">+¥580</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="card-footer d-flex justify-content-between border-top py-2">
-              <small className="text-muted">总持仓: 1个</small>
-              <button className="btn btn-sm btn-danger">
-                <i className="bi bi-dash-circle me-1"></i>一键平仓
-              </button>
+            <div className="card-body p-0 overflow-auto" style={{ height: "200px" }}>
+              <PositionPanel />
             </div>
           </div>
           
           {/* 日志面板 */}
           <div className="card shadow-sm border-secondary border-opacity-25">
-            <div className="card-header bg-secondary bg-opacity-10 py-2 border-bottom d-flex justify-content-between align-items-center">
-              <h5 className="card-title mb-0 text-secondary">
-                <i className="bi bi-journal-text me-2"></i>
+            <div className="card-header bg-secondary bg-opacity-10 py-1 border-bottom d-flex justify-content-between align-items-center">
+              <h6 className="card-title mb-0 text-secondary">
+                <i className="bi bi-journal-text me-1"></i>
                 系统日志
-              </h5>
+              </h6>
               <div className="d-flex align-items-center">
                 <HelpIcon title="系统日志" content="记录系统运行和交易活动日志" placement="left" />
-                <span className="badge bg-success ms-2 d-flex align-items-center">
-                  <i className="bi bi-activity me-1"></i>
-                  实时记录
+                <span className="badge bg-success ms-1 d-flex align-items-center px-1 py-0">
+                  <i className="bi bi-activity fs-8 me-1"></i>
+                  <span className="d-none d-md-inline fs-8">实时</span>
                 </span>
               </div>
             </div>
-            <div className="card-body p-0">
+            <div className="card-body p-0 overflow-auto" style={{ maxHeight: "150px" }}>
               <LogPanel />
             </div>
-            <div className="card-footer d-flex justify-content-between border-top py-2">
-              <small className="text-muted">最近日志记录</small>
-              <button className="btn btn-sm btn-primary">
-                <i className="bi bi-trash me-1"></i>清除日志
+            <div className="card-footer d-flex justify-content-between border-top py-1">
+              <small className="text-muted fs-8">最近日志记录</small>
+              <button className="btn btn-sm btn-primary py-0 px-2">
+                <i className="bi bi-trash fs-8"></i>
+                <span className="d-none d-sm-inline ms-1">清除</span>
               </button>
             </div>
           </div>

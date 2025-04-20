@@ -5,22 +5,22 @@
 /* 引入Bootstrap样式 */
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
-/* 简约风格 */
+/* 主题和变量 */
 :root {
-  --foreground: #333333;
-  --background: #ffffff;
-  --background-secondary: #f8f9fa;
+  --foreground: #e4e6eb;
+  --background: #1e1e1e;
+  --background-secondary: #2c2c2c;
   --primary: #3b82f6;
-  --secondary: #e5e7eb;
+  --secondary: #4b5563;
   --accent: #6366f1;
   --accent-secondary: #8b5cf6;
-  --border: rgba(220, 220, 220, 0.8);
+  --border: rgba(80, 80, 80, 0.6);
   --success: #22c55e;
   --error: #ef4444;
   --warning: #f59e0b;
   --info: #3b82f6;
   --glow: rgba(59, 130, 246, 0.2);
-  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   --bs-primary: #0d6efd;
   --bs-secondary: #6c757d;
   --bs-success: #20c997;
@@ -29,13 +29,14 @@
   --bs-info: #0dcaf0;
   --bs-dark: #343a40;
   --bs-light: #f8f9fa;
-  --bs-body-bg: #ffffff;
-  --bs-body-color: #333333;
+  --bs-body-bg: #1e1e1e;
+  --bs-body-color: #e4e6eb;
 }
 
 html {
   color: var(--foreground);
   background: var(--background);
+  scroll-behavior: smooth;
 }
 
 body {
@@ -46,342 +47,7 @@ body {
   overflow-x: hidden;
 }
 
-/* 卡片样式 */
-.glass {
-  background: var(--background);
-  border: 1px solid var(--border);
-  box-shadow: var(--card-shadow);
-  border-radius: 6px;
-  transition: all 0.2s ease;
-}
-
-.glass:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(59, 130, 246, 0.3);
-}
-
-.glass-header {
-  background: var(--background-secondary);
-  border-bottom: 1px solid var(--border);
-}
-
-/* 文本效果 */
-.glow-text {
-  color: var(--primary);
-}
-
-.gradient-text {
-  background: linear-gradient(to right, #3b82f6, #6366f1, #8b5cf6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 600;
-}
-
-/* 表格样式 - 简约风格 */
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th {
-  background-color: var(--background-secondary);
-  font-weight: 500;
-  font-size: 0.85rem;
-  text-align: left;
-  padding: 0.6rem 0.75rem;
-  border-bottom: 1px solid var(--border);
-  color: var(--bs-dark);
-}
-
-td {
-  padding: 0.5rem 0.75rem;
-  border-bottom: 1px solid var(--border);
-  font-size: 0.85rem;
-}
-
-tr:nth-child(even) {
-  background-color: var(--background-secondary);
-}
-
-tr:hover {
-  background-color: rgba(59, 130, 246, 0.05);
-}
-
-/* 标签和值 */
-.label {
-  font-size: 0.75rem;
-  color: #6c757d;
-  margin-bottom: 0.25rem;
-}
-
-.value {
-  font-size: 0.875rem;
-  color: var(--foreground);
-}
-
-.value-up {
-  color: var(--success);
-}
-
-.value-down {
-  color: var(--error);
-}
-
 /* 自定义滚动条样式 */
-::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(240, 240, 240, 0.8);
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(59, 130, 246, 0.3);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(59, 130, 246, 0.5);
-}
-
-/* 输入框和选择框统一样式 */
-input, select {
-  background-color: var(--background);
-  border: 1px solid var(--border);
-  color: var(--foreground);
-  border-radius: 4px;
-  padding: 0.4rem 0.5rem;
-  font-size: 0.875rem;
-  transition: all 0.2s ease;
-}
-
-input:focus, select:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
-  outline: none;
-}
-
-/* 按钮样式 */
-button {
-  background: linear-gradient(45deg, #3b82f6, #6366f1);
-  color: white;
-  font-weight: 500;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-  position: relative;
-  z-index: 1;
-  overflow: hidden;
-}
-
-button:hover {
-  box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
-  transform: translateY(-1px);
-}
-
-button:active {
-  transform: translateY(1px);
-}
-
-/* 状态指示器 */
-.status-dot {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  margin-right: 6px;
-}
-.status-dot.active { background-color: var(--success); box-shadow: 0 0 5px var(--success); }
-.status-dot.inactive { background-color: var(--error); box-shadow: 0 0 5px var(--error); }
-.status-dot.warning { background-color: var(--warning); box-shadow: 0 0 5px var(--warning); }
-.status-dot.info { background-color: var(--info); box-shadow: 0 0 5px var(--info); }
-
-/* 图表和数据显示区域 */
-.data-panel {
-  background: var(--background);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 0.75rem;
-}
-
-.data-value {
-  font-size: 1.25rem;
-  font-weight: 500;
-  color: var(--foreground);
-}
-
-.data-label {
-  font-size: 0.75rem;
-  color: #6c757d;
-  margin-bottom: 0.25rem;
-}
-
-/* 特殊效果 */
-.flash {
-  animation: flash 0.5s ease;
-}
-
-@keyframes flash {
-  0%, 100% { background-color: transparent; }
-  50% { background-color: rgba(59, 130, 246, 0.15); }
-}
-
-.positive-flash {
-  animation: positive-flash 0.5s ease;
-}
-
-@keyframes positive-flash {
-  0%, 100% { background-color: transparent; }
-  50% { background-color: rgba(16, 185, 129, 0.1); }
-}
-
-.negative-flash {
-  animation: negative-flash 0.5s ease;
-}
-
-@keyframes negative-flash {
-  0%, 100% { background-color: transparent; }
-  50% { background-color: rgba(239, 68, 68, 0.1); }
-}
-
-/* 自定义Bootstrap覆盖样式 */
-.bg-dark-blue {
-  background-color: #f8f9fa !important;
-  border-bottom: 1px solid #e9ecef;
-}
-
-.bg-navy {
-  background-color: #ffffff !important;
-  border: 1px solid var(--border);
-}
-
-.border-primary-subtle {
-  border-color: #e9ecef !important;
-}
-
-.text-primary-emphasis {
-  color: var(--primary) !important;
-}
-
-.text-success-emphasis {
-  color: var(--success) !important;
-}
-
-.text-danger-emphasis {
-  color: var(--error) !important;
-}
-
-/* 表格深色主题改为浅色 */
-.table-dark {
-  color: var(--foreground);
-  background-color: var(--background);
-  border-color: var(--border);
-}
-
-.form-control.bg-dark, 
-.form-select.bg-dark {
-  background-color: var(--background) !important;
-  border: 1px solid var(--border);
-  color: var(--foreground);
-}
-
-.form-control.bg-dark:focus, 
-.form-select.bg-dark:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.15);
-  color: var(--foreground);
-}
-
-.required-field::after {
-  content: " *";
-  color: var(--error);
-  font-weight: bold;
-}
-
-/* 卡片样式 */
-.card.bg-navy {
-  background-color: var(--background) !important;
-}
-
-.card-header.border-primary {
-  border-bottom: 1px solid var(--border);
-}
-
-/* 渐变按钮 */
-.btn-gradient-success {
-  background: linear-gradient(45deg, #22c55e, #10b981);
-}
-
-.btn-gradient-danger {
-  background: linear-gradient(45deg, #ef4444, #dc2626);
-}
-
-/* 确保系统状态组件样式 */
-.system-status-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow: hidden;
-  color: #fff;
-  background-color: #1e1e1e;
-}
-
-.system-status-body {
-  flex: 1;
-  overflow-y: auto;
-}
-
-.system-status-footer {
-  margin-top: auto;
-}
-
-/* 修复进度条样式 */
-.progress {
-  background-color: rgba(80, 80, 80, 0.3) !important;
-  height: 8px;
-}
-
-/* 修复边距和间距问题 */
-.mb-3 {
-  margin-bottom: 1rem !important;
-}
-
-.mb-2 {
-  margin-bottom: 0.5rem !important;
-}
-
-.mt-2 {
-  margin-top: 0.5rem !important;
-}
-
-/* 修复其他潜在问题 */
-.row {
-  --bs-gutter-x: 0.5rem;
-  --bs-gutter-y: 0;
-}
-
-.col-6 {
-  padding-right: calc(var(--bs-gutter-x) * 0.5);
-  padding-left: calc(var(--bs-gutter-x) * 0.5);
-}
-
-.fs-8 {
-  font-size: 0.75rem !important;
-}
-
-/* 确保卡片样式正确 */
-.card {
-  background-color: #1e1e1e;
-  color: #fff;
-}
-
-.card-body {
-  flex: 1 1 auto;
-}
-
-/* 滚动条优化 */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -398,4 +64,313 @@ button:active {
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(100, 100, 100, 0.8);
+}
+
+/* 响应式布局改进 */
+.container-fluid {
+  max-width: 2000px;
+  margin: 0 auto;
+}
+
+/* 确保卡片在各种屏幕尺寸下显示一致 */
+.card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-secondary);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+  border-radius: 0.375rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  padding: 0.75rem 1rem;
+  background-color: rgba(80, 80, 80, 0.2);
+  border-bottom: 1px solid var(--border);
+}
+
+.card-body {
+  flex: 1 1 auto;
+  padding: 1rem;
+  overflow: auto;
+}
+
+.card-footer {
+  padding: 0.75rem 1rem;
+  background-color: rgba(80, 80, 80, 0.2);
+  border-top: 1px solid var(--border);
+}
+
+/* 底部样式优化 */
+.position-footer, 
+.system-status-footer {
+  padding: 0.5rem 1rem;
+  border-top: 1px solid var(--border);
+  background-color: rgba(80, 80, 80, 0.2);
+}
+
+/* 确保按钮样式统一 */
+.btn {
+  border-radius: 0.25rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+}
+
+.btn-outline-primary,
+.btn-outline-secondary,
+.btn-outline-danger {
+  background: transparent;
+}
+
+.btn-outline-primary {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.btn-outline-secondary {
+  color: var(--secondary);
+  border-color: var(--secondary);
+}
+
+.btn-outline-danger {
+  color: var(--error);
+  border-color: var(--error);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+.btn-outline-secondary:hover {
+  background-color: var(--secondary);
+  color: white;
+}
+
+.btn-outline-danger:hover {
+  background-color: var(--error);
+  color: white;
+}
+
+/* 改进表格样式 */
+.table {
+  color: var(--foreground);
+  border-color: var(--border);
+}
+
+.table thead th {
+  background-color: rgba(80, 80, 80, 0.3);
+  color: var(--foreground);
+  border-bottom: 1px solid var(--border);
+}
+
+.table-dark {
+  background-color: var(--background-secondary);
+}
+
+.table-dark tbody tr:hover {
+  background-color: rgba(80, 80, 80, 0.4);
+}
+
+/* 表单元素样式 */
+.form-control,
+.form-select {
+  background-color: var(--background);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+}
+
+.form-control:focus,
+.form-select:focus {
+  background-color: var(--background);
+  color: var(--foreground);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.25);
+}
+
+.input-group-text {
+  background-color: rgba(80, 80, 80, 0.3);
+  color: var(--foreground);
+  border-color: var(--border);
+}
+
+/* 定制持仓面板样式 */
+.position-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.position-list {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 400px;
+}
+
+.position-item {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border);
+  transition: background-color 0.2s;
+}
+
+.position-item:hover {
+  background-color: rgba(80, 80, 80, 0.2);
+}
+
+/* 系统状态组件样式 */
+.system-status-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* 徽章样式 */
+.badge {
+  padding: 0.35em 0.65em;
+  font-weight: 500;
+  border-radius: 0.25rem;
+}
+
+/* 进度条样式优化 */
+.progress {
+  background-color: rgba(80, 80, 80, 0.3);
+  height: 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.progress-bar {
+  border-radius: 0.25rem;
+}
+
+/* 媒体查询以增强响应式设计 */
+@media (max-width: 767.98px) {
+  .row {
+    margin-left: -8px;
+    margin-right: -8px;
+  }
+  
+  .col, .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, 
+  .col-7, .col-8, .col-9, .col-10, .col-11, .col-12,
+  .col-sm, .col-md, .col-lg, .col-xl {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  
+  .card {
+    margin-bottom: 1rem;
+  }
+  
+  .card-body {
+    padding: 0.75rem;
+  }
+  
+  /* 在移动设备上调整表格显示 */
+  .table td, .table th {
+    padding: 0.5rem;
+  }
+}
+
+/* 确保在大屏幕上有更好的布局 */
+@media (min-width: 1200px) {
+  .container-fluid {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* 修复辅助类 */
+.fs-8 {
+  font-size: 0.75rem !important;
+}
+
+.fs-7 {
+  font-size: 0.875rem !important;
+}
+
+/* 状态指示器 */
+.status-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+.status-dot.active { 
+  background-color: var(--success); 
+  box-shadow: 0 0 5px var(--success); 
+}
+
+.status-dot.inactive { 
+  background-color: var(--error); 
+  box-shadow: 0 0 5px var(--error); 
+}
+
+.status-dot.warning { 
+  background-color: var(--warning); 
+  box-shadow: 0 0 5px var(--warning); 
+}
+
+.status-dot.info { 
+  background-color: var(--info); 
+  box-shadow: 0 0 5px var(--info); 
+}
+
+/* 修复下拉菜单样式 */
+.dropdown-menu {
+  background-color: var(--background-secondary);
+  border: 1px solid var(--border);
+}
+
+.dropdown-item {
+  color: var(--foreground);
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+  background-color: rgba(80, 80, 80, 0.3);
+  color: var(--foreground);
+}
+
+/* 辅助高度类 */
+.h-100 {
+  height: 100% !important;
+}
+
+.min-h-100 {
+  min-height: 100% !important;
+}
+
+/* 修复边距问题 */
+.gx-1 { --bs-gutter-x: 0.25rem; }
+.gx-2 { --bs-gutter-x: 0.5rem; }
+.gx-3 { --bs-gutter-x: 1rem; }
+
+.gy-1 { --bs-gutter-y: 0.25rem; }
+.gy-2 { --bs-gutter-y: 0.5rem; }
+.gy-3 { --bs-gutter-y: 1rem; }
+
+/* 确保内容不溢出 */
+.overflow-hidden {
+  overflow: hidden !important;
+}
+
+.overflow-auto {
+  overflow: auto !important;
+}
+
+/* 确保底部固定 */
+.sticky-bottom {
+  position: sticky;
+  bottom: 0;
+  z-index: 1020;
 }
