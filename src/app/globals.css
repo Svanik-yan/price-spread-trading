@@ -5,6 +5,8 @@
 /* 引入Bootstrap样式 */
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
+/* 不再需要导入Ant Design样式，它将在layout.tsx中处理 */
+
 /* 主题和变量 */
 :root {
   --foreground: #e4e6eb;

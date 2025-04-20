@@ -13,6 +13,17 @@ import { Dashboard } from "@/components/dashboard";
 import { StepGuide } from "@/components/step-guide";
 import { HelpIcon } from "@/components/context-help";
 import { PositionPanel } from "@/components/position-panel";
+import { Layout, Menu, Button, Space, Tooltip, Badge, Typography, Tag, Divider } from 'antd';
+import { 
+  QuestionCircleOutlined, 
+  CheckCircleOutlined, 
+  AreaChartOutlined, 
+  PlayCircleOutlined, 
+  StopOutlined 
+} from '@ant-design/icons';
+
+const { Header } = Layout;
+const { Title, Text } = Typography;
 
 export default function Home() {
   // 控制初学者指南显示和当前活动步骤
@@ -38,40 +49,40 @@ export default function Home() {
 
   return (
     <div className="container-fluid px-2 py-2" style={{ minHeight: 'calc(100vh - 3rem)' }}>
-      {/* 顶部导航栏 */}
-      <nav className="navbar navbar-expand-lg bg-light mb-2 rounded shadow-sm">
-        <div className="container-fluid">
-          <span className="navbar-brand mb-0 h1 text-primary">
-            <i className="bi bi-graph-up-arrow text-primary me-2"></i>
-            价差交易平台
-          </span>
-          
-          <div className="d-flex align-items-center">
-            {/* 新手指引按钮 */}
-            <button onClick={() => setShowGuide(!showGuide)} className="btn btn-outline-primary btn-sm me-2">
-              <i className="bi bi-question-circle me-1"></i>
-              <span className="d-none d-sm-inline">{showGuide ? "关闭指引" : "新手指引"}</span>
-            </button>
-            
-            <div className="d-flex align-items-center me-2">
-              <span className="badge bg-success rounded-circle p-1 me-1">
-                <i className="bi bi-check-circle-fill"></i>
-              </span>
-              <small className="text-success d-none d-sm-inline">系统在线</small>
-            </div>
-            <div className="d-flex gap-1">
-              <button className="btn btn-sm btn-success py-0 px-2">
-                <i className="bi bi-play-fill"></i>
-                <span className="d-none d-sm-inline ms-1">启动</span>
-              </button>
-              <button className="btn btn-sm btn-danger py-0 px-2">
-                <i className="bi bi-stop-fill"></i>
-                <span className="d-none d-sm-inline ms-1">停止</span>
-              </button>
-            </div>
-          </div>
+      {/* 顶部导航栏 - Ant Design 风格 */}
+      <Header className="flex justify-between items-center bg-white shadow rounded-md px-4 mb-3" style={{ height: '48px', lineHeight: '48px' }}>
+        <div className="flex items-center">
+          <AreaChartOutlined style={{ fontSize: '18px', marginRight: '8px', color: '#1890ff' }} />
+          <Title level={5} style={{ margin: 0, color: '#1890ff' }}>价差交易平台</Title>
         </div>
-      </nav>
+        
+        <div className="flex items-center gap-3">
+          <Tooltip title={showGuide ? "关闭指引" : "查看新手指引"}>
+            <Button 
+              type="link" 
+              icon={<QuestionCircleOutlined />} 
+              onClick={() => setShowGuide(!showGuide)}
+              size="small"
+            >
+              {showGuide ? "关闭指引" : "新手指引"}
+            </Button>
+          </Tooltip>
+          
+          <Divider type="vertical" style={{ margin: '0 8px', height: '20px' }} />
+          
+          <Space>
+            <Badge status="success" text={<Text type="success">系统在线</Text>} />
+            
+            <Button type="primary" size="small" icon={<PlayCircleOutlined />}>
+              <span>全部启动</span>
+            </Button>
+            
+            <Button danger size="small" icon={<StopOutlined />}>
+              <span>全部停止</span>
+            </Button>
+          </Space>
+        </div>
+      </Header>
       
       {/* 步骤引导区域 */}
       <div className="mb-2">

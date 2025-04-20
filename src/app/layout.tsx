@@ -18,6 +18,7 @@ export default function RootLayout({
     <html lang="zh-CN">
       <head>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.min.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/antd@5.15.2/dist/reset.css" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
       </head>
       <body className={inter.className}>
