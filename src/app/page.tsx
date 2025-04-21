@@ -49,50 +49,65 @@ export default function Home() {
 
   return (
     <div className="container-fluid px-2 py-2" style={{ minHeight: 'calc(100vh - 3rem)' }}>
-      {/* 顶部导航栏 - Ant Design 风格 */}
-      <Header className="flex justify-between items-center bg-white shadow rounded-md px-4 mb-3" style={{ height: '48px', lineHeight: '48px' }}>
-        <div className="flex items-center">
-          <AreaChartOutlined style={{ fontSize: '18px', marginRight: '8px', color: '#1890ff' }} />
-          <Title level={5} style={{ margin: 0, color: '#1890ff' }}>价差交易平台</Title>
+      {/* 顶部导航栏 - Element UI 风格 */}
+      <div className="el-menu--horizontal shadow-sm rounded-md px-4 mb-3 flex justify-between items-center bg-white h-12">
+        <div className="flex items-center h-full">
+          <AreaChartOutlined style={{ fontSize: '18px', marginRight: '8px', color: '#409EFF' }} />
+          <div className="text-base font-medium text-[#303133]">价差交易平台</div>
         </div>
         
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4 h-full">
           <Tooltip title={showGuide ? "关闭指引" : "查看新手指引"}>
             <Button 
-              type="link" 
+              type="text" 
               icon={<QuestionCircleOutlined />} 
               onClick={() => setShowGuide(!showGuide)}
               size="small"
+              className="text-[#606266]"
             >
               {showGuide ? "关闭指引" : "新手指引"}
             </Button>
           </Tooltip>
           
-          <Divider type="vertical" style={{ margin: '0 8px', height: '20px' }} />
+          <Divider type="vertical" style={{ margin: '0 8px', height: '16px', borderColor: '#EBEEF5' }} />
           
-          <Space>
-            <Badge status="success" text={<Text type="success">系统在线</Text>} />
+          <Space size={12}>
+            <div className="el-result-success flex items-center px-3 py-1 rounded bg-[#f0f9eb] text-[#67C23A]">
+              <span className="inline-block w-2 h-2 rounded-full bg-[#67C23A] mr-2"></span>
+              <span className="text-[#67C23A] text-sm">系统在线</span>
+            </div>
             
-            <Button type="primary" size="small" icon={<PlayCircleOutlined />}>
+            <Button 
+              type="primary" 
+              size="small" 
+              icon={<PlayCircleOutlined />}
+              style={{ backgroundColor: '#409EFF', borderColor: '#409EFF' }}
+              className="h-8 px-3"
+            >
               <span>全部启动</span>
             </Button>
             
-            <Button danger size="small" icon={<StopOutlined />}>
+            <Button 
+              danger 
+              size="small" 
+              icon={<StopOutlined />}
+              className="h-8 px-3"
+            >
               <span>全部停止</span>
             </Button>
           </Space>
         </div>
-      </Header>
+      </div>
       
       {/* 步骤引导区域 */}
-      <div className="mb-2">
+      <div className="mb-4">
         <StepGuide activeStep={activeStep} onStepClick={handleStepClick} />
       </div>
       
       {/* 新手引导区域 - 条件渲染 */}
       {showGuide && (
-        <div className="card mb-2 border-primary">
-          <div className="card-body py-2">
+        <div className="el-card mb-4 border-[#409EFF] border rounded-md overflow-hidden">
+          <div className="el-card__body p-4">
             <BeginnerGuide />
           </div>
         </div>
@@ -103,46 +118,46 @@ export default function Home() {
         {/* 左侧交易和控制区 */}
         <div className="col-md-3">
           {/* 交易表单 */}
-          <div id="trade-form-section" className="card mb-2 shadow-sm border-primary border-opacity-25">
-            <div className="card-header bg-primary bg-opacity-10 py-1 border-bottom d-flex justify-content-between align-items-center">
-              <h6 className="card-title mb-0 text-primary d-flex align-items-center">
-                <i className="bi bi-sliders me-1"></i>
+          <div id="trade-form-section" className="el-card mb-3 rounded-md overflow-hidden shadow-sm border border-[#EBEEF5]">
+            <div className="el-card__header bg-[#ecf5ff] py-2 px-3 border-bottom border-[#DCDFE6] flex justify-between items-center">
+              <div className="text-[#409EFF] font-medium flex items-center">
+                <i className="bi bi-sliders me-1 text-[#409EFF]"></i>
                 交易控制
-                <span className="badge bg-primary ms-1 fs-8">第一步</span>
-              </h6>
+                <span className="ml-2 bg-[#409EFF] text-white text-xs px-2 py-0.5 rounded">第一步</span>
+              </div>
               <HelpIcon title="交易控制" content="在此设置价差交易参数，完成后点击启动交易" />
             </div>
-            <div className="card-body py-2 px-2">
+            <div className="el-card__body p-3">
               <TradeForm />
             </div>
           </div>
 
           {/* 策略控制区 */}
-          <div id="strategy-control-section" className="card mb-2 shadow-sm border-primary border-opacity-25">
-            <div className="card-header bg-primary bg-opacity-10 py-1 border-bottom d-flex justify-content-between align-items-center">
-              <h6 className="card-title mb-0 text-primary">
+          <div id="strategy-control-section" className="el-card mb-3 rounded-md overflow-hidden shadow-sm border border-[#EBEEF5]">
+            <div className="el-card__header bg-[#ecf5ff] py-2 px-3 border-bottom border-[#DCDFE6] flex justify-between items-center">
+              <div className="text-[#409EFF] font-medium flex items-center">
                 <i className="bi bi-gear-wide-connected me-1"></i>
                 策略管理
-                <span className="badge bg-primary ms-1 fs-8">第二步</span>
-              </h6>
+                <span className="ml-2 bg-[#409EFF] text-white text-xs px-2 py-0.5 rounded">第二步</span>
+              </div>
               <HelpIcon title="策略管理" content="选择并管理交易策略，控制策略运行状态" />
             </div>
-            <div className="card-body py-2 px-2">
+            <div className="el-card__body p-3">
               <StrategyControl />
             </div>
           </div>
           
           {/* 系统状态面板 */}
-          <div id="system-status-section" className="card shadow-sm border-info border-opacity-25 mb-2">
-            <div className="card-header bg-info bg-opacity-10 py-1 border-bottom d-flex justify-content-between align-items-center">
-              <h6 className="card-title mb-0 text-info">
+          <div id="system-status-section" className="el-card mb-3 rounded-md overflow-hidden shadow-sm border border-[#EBEEF5]">
+            <div className="el-card__header bg-[#f0f9eb] py-2 px-3 border-bottom border-[#DCDFE6] flex justify-between items-center">
+              <div className="text-[#67C23A] font-medium flex items-center">
                 <i className="bi bi-hdd-network me-1"></i>
                 系统状态
-                <span className="badge bg-info ms-1 fs-8">监控</span>
-              </h6>
+                <span className="ml-2 bg-[#67C23A] text-white text-xs px-2 py-0.5 rounded">监控</span>
+              </div>
               <HelpIcon title="系统状态" content="实时监控系统运行状态、资源使用和性能指标" />
             </div>
-            <div className="card-body p-0 overflow-hidden" style={{ height: "280px" }}>
+            <div className="el-card__body p-0 overflow-hidden" style={{ height: "280px" }}>
               <SystemStatus />
             </div>
           </div>
@@ -151,28 +166,28 @@ export default function Home() {
         {/* 中央区域 */}
         <div className="col-md-6">
           {/* 交易概览面板 */}
-          <div id="dashboard-section" className="card shadow-sm mb-2 border-primary border-opacity-25">
-            <div className="card-header bg-primary bg-opacity-10 py-1 border-bottom d-flex justify-content-between align-items-center">
-              <h6 className="card-title mb-0 text-primary">
-                <i className="bi bi-speedometer2 me-1"></i>
+          <div id="dashboard-section" className="el-card mb-3 rounded-md overflow-hidden shadow-sm border border-[#EBEEF5]">
+            <div className="el-card__header bg-[#ecf5ff] py-2 px-3 border-bottom border-[#DCDFE6] flex justify-between items-center">
+              <div className="text-[#409EFF] font-medium flex items-center">
+                <i className="bi bi-speedometer2 me-1 text-[#409EFF]"></i>
                 交易概览
-                <span className="badge bg-primary ms-1 fs-8">总览</span>
-              </h6>
+                <span className="ml-2 bg-[#409EFF] text-white text-xs px-2 py-0.5 rounded">总览</span>
+              </div>
               <HelpIcon title="交易概览" content="显示交易策略、价差、持仓等关键数据统计" />
             </div>
-            <div className="card-body p-0 overflow-hidden">
+            <div className="el-card__body p-0 overflow-hidden">
               <Dashboard />
             </div>
           </div>
           
           {/* 价差数据区 */}
-          <div id="spread-data-section" className="card shadow-sm mb-2 border-success border-opacity-25">
-            <div className="card-header bg-success bg-opacity-10 py-1 border-bottom d-flex justify-content-between align-items-center">
-              <h6 className="card-title mb-0 text-success">
-                <i className="bi bi-bar-chart-line me-1"></i>
+          <div id="spread-data-section" className="el-card mb-3 rounded-md overflow-hidden shadow-sm border border-[#EBEEF5]">
+            <div className="el-card__header bg-[#f0f9eb] py-2 px-3 border-bottom border-[#DCDFE6] flex justify-between items-center">
+              <div className="text-[#67C23A] font-medium flex items-center">
+                <i className="bi bi-bar-chart-line me-1 text-[#67C23A]"></i>
                 价差数据
-                <span className="badge bg-success ms-1 fs-8">第三步</span>
-              </h6>
+                <span className="ml-2 bg-[#67C23A] text-white text-xs px-2 py-0.5 rounded">第三步</span>
+              </div>
               <div className="d-flex align-items-center">
                 <HelpIcon title="价差数据" content="显示所有价差的实时行情和交易数据" placement="left" />
                 <span className="badge bg-info mx-1 d-flex align-items-center px-1 py-0">
@@ -185,10 +200,10 @@ export default function Home() {
                 </select>
               </div>
             </div>
-            <div className="card-body p-0 overflow-auto" style={{ height: "300px" }}>
+            <div className="el-card__body p-0 overflow-auto" style={{ height: "300px" }}>
               <SpreadTable />
             </div>
-            <div className="card-footer d-flex justify-content-between border-top py-1">
+            <div className="el-card__footer d-flex justify-content-between border-top py-1">
               <small className="text-muted fs-8">总数据: 12条</small>
               <div>
                 <button className="btn btn-sm btn-primary py-0 px-2 me-1">
@@ -204,12 +219,12 @@ export default function Home() {
           </div>
           
           {/* 算法模块 */}
-          <div className="card mb-2 shadow-sm border-warning border-opacity-25">
-            <div className="card-header bg-warning bg-opacity-10 py-1 border-bottom d-flex justify-content-between align-items-center">
-              <h6 className="card-title mb-0 text-warning">
-                <i className="bi bi-cpu me-1"></i>
+          <div className="el-card mb-3 rounded-md overflow-hidden shadow-sm border border-[#EBEEF5]">
+            <div className="el-card__header bg-[#f0f9eb] py-2 px-3 border-bottom border-[#DCDFE6] flex justify-between items-center">
+              <div className="text-[#67C23A] font-medium flex items-center">
+                <i className="bi bi-cpu me-1 text-[#67C23A]"></i>
                 算法
-              </h6>
+              </div>
               <div className="d-flex align-items-center">
                 <HelpIcon title="交易算法" content="自动交易算法配置和管理" placement="left" />
                 <span className="badge bg-primary ms-1 d-flex align-items-center px-1 py-0">
@@ -218,10 +233,10 @@ export default function Home() {
                 </span>
               </div>
             </div>
-            <div className="card-body p-0 overflow-auto" style={{ maxHeight: "200px" }}>
+            <div className="el-card__body p-0 overflow-auto" style={{ maxHeight: "200px" }}>
               <AlgorithmPanel />
             </div>
-            <div className="card-footer d-flex justify-content-between border-top py-1">
+            <div className="el-card__footer d-flex justify-content-between border-top py-1">
               <small className="text-muted fs-8">总算法: 3个</small>
               <div>
                 <button className="btn btn-sm btn-primary py-0 px-2 me-1">
@@ -240,19 +255,19 @@ export default function Home() {
         {/* 右侧面板区域 */}
         <div className="col-md-3">
           {/* 策略面板 */}
-          <div className="card mb-2 shadow-sm border-warning border-opacity-25">
-            <div className="card-header bg-warning bg-opacity-10 py-1 border-bottom d-flex justify-content-between align-items-center">
-              <h6 className="card-title mb-0 text-warning">
-                <i className="bi bi-gear me-1"></i>
+          <div className="el-card mb-3 rounded-md overflow-hidden shadow-sm border border-[#EBEEF5]">
+            <div className="el-card__header bg-[#f0f9eb] py-2 px-3 border-bottom border-[#DCDFE6] flex justify-between items-center">
+              <div className="text-[#67C23A] font-medium flex items-center">
+                <i className="bi bi-gear me-1 text-[#67C23A]"></i>
                 策略
-                <span className="badge bg-warning ms-1 fs-8 text-dark">监控</span>
-              </h6>
+                <span className="ml-2 bg-[#67C23A] text-white text-xs px-2 py-0.5 rounded">监控</span>
+              </div>
               <HelpIcon title="策略监控" content="显示策略运行状态和性能指标" placement="left" />
             </div>
-            <div className="card-body p-0 overflow-auto" style={{ maxHeight: "200px" }}>
+            <div className="el-card__body p-0 overflow-auto" style={{ maxHeight: "200px" }}>
               <StrategyPanel />
             </div>
-            <div className="card-footer d-flex justify-content-between border-top py-1">
+            <div className="el-card__footer d-flex justify-content-between border-top py-1">
               <small className="text-muted fs-8">总策略: 3个</small>
               <button className="btn btn-sm btn-primary py-0 px-2">
                 <i className="bi bi-gear-wide-connected fs-8"></i>
@@ -262,27 +277,27 @@ export default function Home() {
           </div>
           
           {/* 持仓面板 */}
-          <div id="position-panel-section" className="card mb-2 shadow-sm border-danger border-opacity-25">
-            <div className="card-header bg-danger bg-opacity-10 py-1 border-bottom d-flex justify-content-between align-items-center">
-              <h6 className="card-title mb-0 text-danger">
-                <i className="bi bi-briefcase me-1"></i>
+          <div id="position-panel-section" className="el-card mb-3 rounded-md overflow-hidden shadow-sm border border-[#EBEEF5]">
+            <div className="el-card__header bg-[#f0f9eb] py-2 px-3 border-bottom border-[#DCDFE6] flex justify-between items-center">
+              <div className="text-[#67C23A] font-medium flex items-center">
+                <i className="bi bi-briefcase me-1 text-[#67C23A]"></i>
                 持仓管理
-                <span className="badge bg-danger ms-1 fs-8">第四步</span>
-              </h6>
+                <span className="ml-2 bg-[#67C23A] text-white text-xs px-2 py-0.5 rounded">第四步</span>
+              </div>
               <HelpIcon title="持仓管理" content="查看和管理当前持仓情况" placement="left" />
             </div>
-            <div className="card-body p-0 overflow-auto" style={{ height: "200px" }}>
+            <div className="el-card__body p-0 overflow-auto" style={{ height: "200px" }}>
               <PositionPanel />
             </div>
           </div>
           
           {/* 日志面板 */}
-          <div className="card shadow-sm border-secondary border-opacity-25">
-            <div className="card-header bg-secondary bg-opacity-10 py-1 border-bottom d-flex justify-content-between align-items-center">
-              <h6 className="card-title mb-0 text-secondary">
-                <i className="bi bi-journal-text me-1"></i>
+          <div className="el-card shadow-sm border-[#EBEEF5]">
+            <div className="el-card__header bg-[#f0f9eb] py-1 px-3 border-bottom border-[#DCDFE6] flex justify-between items-center">
+              <div className="text-[#67C23A] font-medium flex items-center">
+                <i className="bi bi-journal-text me-1 text-[#67C23A]"></i>
                 系统日志
-              </h6>
+              </div>
               <div className="d-flex align-items-center">
                 <HelpIcon title="系统日志" content="记录系统运行和交易活动日志" placement="left" />
                 <span className="badge bg-success ms-1 d-flex align-items-center px-1 py-0">
@@ -291,10 +306,10 @@ export default function Home() {
                 </span>
               </div>
             </div>
-            <div className="card-body p-0 overflow-auto" style={{ maxHeight: "150px" }}>
+            <div className="el-card__body p-0 overflow-auto" style={{ maxHeight: "150px" }}>
               <LogPanel />
             </div>
-            <div className="card-footer d-flex justify-content-between border-top py-1">
+            <div className="el-card__footer d-flex justify-content-between border-top py-1">
               <small className="text-muted fs-8">最近日志记录</small>
               <button className="btn btn-sm btn-primary py-0 px-2">
                 <i className="bi bi-trash fs-8"></i>

@@ -9,6 +9,44 @@
 
 /* 主题和变量 */
 :root {
+  /* Element UI 颜色 */
+  --el-color-primary: #409EFF;
+  --el-color-success: #67C23A;
+  --el-color-warning: #E6A23C;
+  --el-color-danger: #F56C6C;
+  --el-color-info: #909399;
+  
+  --el-color-primary-light-1: #53a8ff;
+  --el-color-primary-light-3: #79bbff;
+  --el-color-primary-light-5: #a0cfff;
+  --el-color-primary-light-7: #c6e2ff;
+  --el-color-primary-light-8: #d9ecff;
+  --el-color-primary-light-9: #ecf5ff;
+  
+  --el-bg-color: #ffffff;
+  --el-bg-color-page: #f2f3f5;
+  --el-bg-color-overlay: #ffffff;
+  
+  --el-text-color-primary: #303133;
+  --el-text-color-regular: #606266;
+  --el-text-color-secondary: #909399;
+  --el-text-color-placeholder: #a8abb2;
+  --el-text-color-disabled: #c0c4cc;
+  
+  --el-border-color: #dcdfe6;
+  --el-border-color-light: #e4e7ed;
+  --el-border-color-lighter: #ebeef5;
+  --el-border-color-extra-light: #f2f6fc;
+  
+  --el-font-size-base: 14px;
+  --el-font-size-small: 13px;
+  --el-font-size-large: 16px;
+  
+  --el-border-radius-base: 4px;
+  --el-border-radius-small: 2px;
+  --el-border-radius-round: 20px;
+  --el-border-radius-circle: 100%;
+
   --foreground: #e4e6eb;
   --background: #1e1e1e;
   --background-secondary: #2c2c2c;
@@ -36,14 +74,14 @@
 }
 
 html {
-  color: var(--foreground);
-  background: var(--background);
+  color: var(--el-text-color-primary);
+  background: var(--el-bg-color-page);
   scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--el-bg-color-page);
+  color: var(--el-text-color-primary);
   min-height: 100vh;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   overflow-x: hidden;
@@ -56,16 +94,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(80, 80, 80, 0.1);
+  background: var(--el-border-color-lighter);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(80, 80, 80, 0.5);
+  background: var(--el-text-color-placeholder);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(100, 100, 100, 0.8);
+  background: var(--el-text-color-secondary);
 }
 
 /* 响应式布局改进 */
@@ -375,4 +413,196 @@ body {
   position: sticky;
   bottom: 0;
   z-index: 1020;
+}
+
+/* Element UI风格的组件样式覆盖 */
+html {
+  color: var(--el-text-color-primary);
+  background: var(--el-bg-color-page);
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--el-bg-color-page);
+  color: var(--el-text-color-primary);
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Element UI风格的滚动条 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--el-border-color-lighter);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--el-text-color-placeholder);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--el-text-color-secondary);
+}
+
+/* 响应式布局改进 */
+.container-fluid {
+  max-width: 2000px;
+  margin: 0 auto;
+}
+
+/* Element UI卡片样式 */
+.el-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--el-bg-color);
+  color: var(--el-text-color-primary);
+  border: 1px solid var(--el-border-color-lighter);
+  border-radius: var(--el-border-radius-base);
+  transition: box-shadow 0.2s;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.el-card:hover {
+  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.15);
+}
+
+.el-card__header {
+  padding: 12px 16px;
+  background-color: var(--el-bg-color);
+  border-bottom: 1px solid var(--el-border-color-light);
+}
+
+.el-card__body {
+  flex: 1 1 auto;
+  padding: 16px;
+  overflow: auto;
+}
+
+.el-card__footer {
+  padding: 8px 16px;
+  background-color: var(--el-bg-color);
+  border-top: 1px solid var(--el-border-color-light);
+}
+
+/* Element UI 表头样式 */
+.el-menu--horizontal {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  background-color: var(--el-bg-color);
+  border-bottom: 1px solid var(--el-border-color-light);
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Element UI 按钮样式 */
+.el-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
+  height: 32px;
+  white-space: nowrap;
+  cursor: pointer;
+  color: var(--el-text-color-regular);
+  text-align: center;
+  box-sizing: border-box;
+  outline: none;
+  transition: .1s;
+  font-weight: 500;
+  user-select: none;
+  vertical-align: middle;
+  padding: 8px 15px;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.el-button--primary {
+  color: #fff;
+  background-color: var(--el-color-primary);
+  border-color: var(--el-color-primary);
+}
+
+.el-button--primary:hover {
+  background-color: var(--el-color-primary-light-1);
+  border-color: var(--el-color-primary-light-1);
+}
+
+.el-button--success {
+  color: #fff;
+  background-color: var(--el-color-success);
+  border-color: var(--el-color-success);
+}
+
+.el-button--small {
+  height: 24px;
+  padding: 5px 11px;
+  font-size: 12px;
+  border-radius: 3px;
+}
+
+/* Element UI 标签样式 */
+.el-tag {
+  padding: 0 8px;
+  height: 24px;
+  line-height: 22px;
+  font-size: 12px;
+  color: var(--el-color-primary);
+  background-color: var(--el-color-primary-light-9);
+  border: 1px solid var(--el-color-primary-light-5);
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* Element UI 表格样式 */
+.el-table {
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  background-color: var(--el-bg-color);
+}
+
+.el-table th {
+  background-color: var(--el-bg-color-page);
+  color: var(--el-text-color-regular);
+  font-weight: 500;
+  border-bottom: 1px solid var(--el-border-color-lighter);
+  padding: 12px 0;
+}
+
+.el-table td {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--el-border-color-lighter);
+}
+
+/* Element UI 表单元素样式 */
+.el-input {
+  position: relative;
+  font-size: var(--el-font-size-base);
+  display: inline-block;
+  width: 100%;
+}
+
+.el-input__inner {
+  background-color: var(--el-bg-color);
+  color: var(--el-text-color-regular);
+  height: 32px;
+  line-height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--el-border-color);
+  border-radius: 4px;
+  transition: border-color .2s;
+}
+
+.el-input__inner:focus {
+  outline: none;
+  border-color: var(--el-color-primary);
 }
