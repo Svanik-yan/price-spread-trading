@@ -13,17 +13,15 @@ import { StepGuide } from "@/components/step-guide";
 import { HelpIcon } from "@/components/context-help";
 import { PositionPanel } from "@/components/position-panel";
 import { Dashboard } from "@/components/dashboard";
-import { Layout, Menu, Button, Space, Tooltip, Badge, Typography, Tag, Divider } from 'antd';
+import { Layout, Button, Space, Tooltip, Divider } from 'antd';
 import { 
   QuestionCircleOutlined, 
-  CheckCircleOutlined, 
   AreaChartOutlined, 
   PlayCircleOutlined, 
   StopOutlined 
 } from '@ant-design/icons';
 
-const { Header } = Layout;
-const { Title, Text } = Typography;
+const _Header = Layout.Header;
 
 export default function Home() {
   // 控制初学者指南显示和当前活动步骤

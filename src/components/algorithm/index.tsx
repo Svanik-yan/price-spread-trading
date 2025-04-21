@@ -2,7 +2,8 @@ import React from "react";
 import { useTradeStore } from "@/lib/store/trade-store";
 
 export function AlgorithmPanel() {
-  const { algorithmConfigs } = useTradeStore();
+  // const { algorithmConfigs } = useTradeStore();
+  useTradeStore(); // 仍然调用 hook，但不解构未使用的变量
   
   // 模拟数据
   const mockData = [

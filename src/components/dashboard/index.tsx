@@ -3,16 +3,16 @@ import { useTradeStore } from '@/lib/store/trade-store';
 import { Strategy, SpreadItem, PositionItem } from '@/types';
 
 // 定义交易记录接口，因为types中未定义
-interface Trade {
-  volume: number;
-}
+// interface Trade {
+//   volume: number;
+// }
 
 export function Dashboard() {
   const { 
     spreadItems: spreads = [], 
     positions = [],
     strategies = [],
-    isConnected = false
+    // isConnected = false
   } = useTradeStore();
   
   // 计算统计数据

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useTradeStore } from "@/lib/store/trade-store";
-import { PositionItem } from "@/types";
+// import { PositionItem } from "@/types";
 
 export function PositionPanel() {
   const { positions, updatePosition, closePosition, closeAllPositions, addLog } = useTradeStore();

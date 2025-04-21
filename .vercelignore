@@ -2,3 +2,7 @@
 node_modules
 *.eslintrc*
 *.tsconfig*
+
+# 忽略构建时的类型检查和lint检查
+.eslintrc.json
+tsconfig.json
